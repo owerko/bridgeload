@@ -2,8 +2,7 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import numpy as np
 from sklearn.linear_model import LinearRegression
-import datetime as dt
-import pandas as pd
+from statistics import mean, stdev
 
 date = []
 Rbin23 = []
@@ -74,8 +73,33 @@ Y_pred_tc23 = modeltc23.predict(Xtc)
 
 # LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)
 
+print(ytc)
+print(model.predict(X))
+print(date)
 print(datetc)
 
+indeksy = []
+for i in range(len(datetc)):
+    for j in range(len(date)):
+        if datetc[i] == date[j]:
+            indeksy.append(j)
+
+print(indeksy)
+
+dealta39 = []
+for i in range(len(indeksy)):
+    d= tc39[i] - model.predict(X)[indeksy[i]]
+    dealta39.append(d)
+print(dealta39)
+
+dealta23 = []
+for i in range(len(indeksy)):
+    d= tc23[i] - model23.predict(X)[indeksy[i]]
+    dealta23.append(d)
+print(dealta23)
+
+print(mean(dealta23), stdev(dealta23))
+print(mean(dealta39), stdev(dealta39))
 
 # plt.figure(1)
 fig, ax = plt.subplots(figsize=(8, 4), dpi=300)
